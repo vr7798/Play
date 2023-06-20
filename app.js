@@ -1,4 +1,3 @@
-GNU nano 7.2              app.js
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8080;
