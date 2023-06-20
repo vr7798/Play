@@ -1,25 +1,25 @@
 const express = require('express');
 const app = express();
-const request = require('request');
+const axios = require('axios');
 const PORT = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
 
-app.get('/play', (req, res) => {
+app.get('/play', async (req, res) => {
   const videoUrl = 'http://acsb.sh:80/movie/SstHxJjw/imaginationteste/198712.mp4';
 
-  // Faz uma solicitação GET para pré-carregar o vídeo
-  request.get(videoUrl, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      console.log('Vídeo pré-carregado.');
+  try {
+    // Faz uma solicitação GET para pré-carregar o vídeo usando o módulo axios
+    await axios.get(videoUrl);
 
-      // Renderiza a visualização do player e passa a URL do vídeo pré-carregado
-      res.render('player', { videoUrl: videoUrl });
-    } else {
-      console.error('Erro ao pré-carregar o vídeo:', error);
-      res.send('Erro ao pré-carregar o vídeo.');
-    }
-  });
+    console.log('Vídeo pré-carregado.');
+
+    // Renderiza a visualização do player e passa a URL do vídeo pré-carregado
+    res.render('player', { videoUrl: videoUrl });
+  } catch (error) {
+    console.error('Erro ao pré-carregar o vídeo:', error);
+    res.send('Erro ao pré-carregar o vídeo.');
+  }
 });
 
 app.listen(PORT, () => {
