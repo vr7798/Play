@@ -1,6 +1,7 @@
 GNU nano 7.2              app.js
 const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
 
@@ -9,6 +10,7 @@ app.get('/play', (req, res) => {
   res.render('player', { videoUrl });
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+app.listen(PORT, () => {
+  console.log("SERVIDOR RODANDO! NA PORTA", PORT);
 });
+
